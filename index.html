@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R36 Ultra Game Hub — Find Free Compatible Games</title>
+  <meta name="description" content="Browse and download free, legal homebrew and public domain games compatible with the R36 Ultra handheld console. Filter by platform, search by title, and get direct download links." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ── Animated Background ── -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <canvas id="particles-canvas"></canvas>
+  </div>
+
+  <!-- ── Navigation ── -->
+  <header id="site-header">
+    <nav class="nav-inner">
+      <a href="#" class="logo" id="nav-logo">
+        <span class="logo-emblem">R36</span>
+        <span class="logo-title">Ultra <span class="gradient-text">Hub</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#platforms" class="nav-link">Platforms</a>
+        <a href="#scraper" class="nav-link">Scraper</a>
+        <a href="#browse" class="nav-link">Browse</a>
+        <a href="#about" class="nav-link">About</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+    </nav>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Free &amp; Legal ROMs — Powered by Internet Archive
+      </div>
+      <h1 class="hero-title">
+        Find Games for Your<br/>
+        <span class="gradient-text">R36 Ultra</span>
+      </h1>
+      <p class="hero-sub">
+        Search hundreds of free homebrew and public domain games.<br/>
+        Filter by platform and download directly to your SD card.
+      </p>
+
+      <div class="hero-search-wrap">
+        <span class="search-icon-hero">⌕</span>
+        <input
+          type="text"
+          id="hero-search"
+          class="hero-search-input"
+          placeholder="Search games, genres, or platforms…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="search-btn" id="hero-search-btn">Search</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">12</span>
+          <span class="hero-stat-label">Platforms</span>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">500+</span>
+          <span class="hero-stat-label">Free Games</span>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Legal</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-device" aria-hidden="true">
+      <div class="device-body">
+        <div class="device-screen">
+          <div class="device-scanlines"></div>
+          <div class="device-game-preview" id="device-preview">
+            <span class="device-title-text">R36 ULTRA</span>
+            <span class="device-sub-text">GAME HUB</span>
+          </div>
+        </div>
+        <div class="device-controls">
+          <div class="dpad"></div>
+          <div class="device-btns">
+            <span class="btn-a">A</span>
+            <span class="btn-b">B</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Platform Selector ── -->
+  <section id="platforms" class="section platforms-section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Choose a <span class="gradient-text">Platform</span></h2>
+        <p class="section-sub">Select any console to browse its free &amp; compatible games</p>
+      </div>
+      <div class="platform-grid" id="platform-grid">
+        <!-- Populated by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Web Scraper ── -->
+  <section id="scraper" class="section scraper-section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">🕷️ Live Web <span class="gradient-text">Scraper</span></h2>
+        <p class="section-sub">Scan multiple sources in parallel for R36 Ultra compatible games</p>
+      </div>
+
+      <!-- Source toggles -->
+      <div class="scraper-sources" id="scraper-sources">
+        <label class="source-toggle" data-source="archive">
+          <input type="checkbox" checked id="src-archive" />
+          <div class="source-card" id="scard-archive">
+            <div class="source-icon">🏛️</div>
+            <div class="source-info">
+              <span class="source-name">Internet Archive</span>
+              <span class="source-desc">archive.org — 20M+ items</span>
+            </div>
+            <div class="source-status" id="sstatus-archive">
+              <span class="status-dot idle"></span>
+              <span class="status-text">Ready</span>
+            </div>
+          </div>
+        </label>
+
+        <label class="source-toggle" data-source="github">
+          <input type="checkbox" checked id="src-github" />
+          <div class="source-card" id="scard-github">
+            <div class="source-icon">🐙</div>
+            <div class="source-info">
+              <span class="source-name">GitHub Homebrew</span>
+              <span class="source-desc">github.com — open source ROMs</span>
+            </div>
+            <div class="source-status" id="sstatus-github">
+              <span class="status-dot idle"></span>
+              <span class="status-text">Ready</span>
+            </div>
+          </div>
+        </label>
+
+        <label class="source-toggle" data-source="romhacking">
+          <input type="checkbox" checked id="src-romhacking" />
+          <div class="source-card" id="scard-romhacking">
+            <div class="source-icon">🔧</div>
+            <div class="source-info">
+              <span class="source-name">ROM Hacking Net</span>
+              <span class="source-desc">romhacking.net — homebrew section</span>
+            </div>
+            <div class="source-status" id="sstatus-romhacking">
+              <span class="status-dot idle"></span>
+              <span class="status-text">Ready</span>
+            </div>
+          </div>
+        </label>
+
+        <label class="source-toggle" data-source="itch">
+          <input type="checkbox" checked id="src-itch" />
+          <div class="source-card" id="scard-itch">
+            <div class="source-icon">🎮</div>
+            <div class="source-info">
+              <span class="source-name">Itch.io Retro</span>
+              <span class="source-desc">itch.io — free retro game jams</span>
+            </div>
+            <div class="source-status" id="sstatus-itch">
+              <span class="status-dot idle"></span>
+              <span class="status-text">Ready</span>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Scraper controls -->
+      <div class="scraper-controls">
+        <div class="scraper-search-wrap">
+          <span class="search-icon-hero">⌕</span>
+          <input type="text" id="scraper-search" class="scraper-search-input"
+            placeholder="Optional: search term (e.g. &quot;platformer&quot;, &quot;zelda&quot;)…"
+            autocomplete="off" spellcheck="false" />
+        </div>
+        <button class="btn-scrape" id="btn-scrape">
+          <span class="scrape-icon">🕷️</span>
+          <span class="scrape-label">Start Scraping</span>
+        </button>
+        <button class="btn-stop" id="btn-stop" style="display:none">⏹ Stop</button>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="scraper-progress" id="scraper-progress" style="display:none">
+        <div class="progress-header">
+          <span class="progress-label" id="progress-label">Scanning sources…</span>
+          <span class="progress-count" id="progress-count">0 games found</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-log" id="progress-log"></div>
+      </div>
+
+      <!-- Scraper results flow into browse section -->
+      <div class="scraper-result-hint" id="scraper-result-hint" style="display:none">
+        <span>⬇️ Results added to the game browser below</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Game Browser ── -->
+  <section id="browse" class="section browse-section">
+    <div class="container">
+      <div class="browse-header">
+        <div>
+          <h2 class="section-title" id="browse-title">Featured <span class="gradient-text">Games</span></h2>
+          <p class="section-sub" id="browse-subtitle">Free &amp; legal titles from the Internet Archive</p>
+        </div>
+        <div class="browse-controls">
+          <div class="control-group">
+            <label for="genre-filter" class="sr-only">Filter by genre</label>
+            <select id="genre-filter" class="styled-select">
+              <option value="">All Genres</option>
+              <option value="Action">Action</option>
+              <option value="RPG">RPG</option>
+              <option value="Platformer">Platformer</option>
+              <option value="Puzzle">Puzzle</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Sports">Sports</option>
+              <option value="Racing">Racing</option>
+              <option value="Shooter">Shooter</option>
+              <option value="Strategy">Strategy</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="compat-filter" class="sr-only">Filter by compatibility</label>
+            <select id="compat-filter" class="styled-select">
+              <option value="">All Compatibility</option>
+              <option value="excellent">Excellent</option>
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
+            </select>
+          </div>
+          <div class="view-toggle" role="group" aria-label="View mode">
+            <button class="view-btn active" id="btn-grid-view" title="Grid view" aria-pressed="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="6" height="6"/><rect x="10" y="0" width="6" height="6"/><rect x="0" y="10" width="6" height="6"/><rect x="10" y="10" width="6" height="6"/></svg>
+            </button>
+            <button class="view-btn" id="btn-list-view" title="List view" aria-pressed="false">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="16" height="3"/><rect x="0" y="6" width="16" height="3"/><rect x="0" y="12" width="16" height="3"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform filter pills -->
+      <div class="filter-pills" id="filter-pills" role="group" aria-label="Platform filter">
+        <!-- Populated by app.js -->
+      </div>
+
+      <!-- Game grid -->
+      <div class="game-grid" id="game-grid">
+        <!-- Skeleton cards on load -->
+      </div>
+
+      <!-- Loading state -->
+      <div class="loading-state" id="loading-state" style="display:none">
+        <div class="loader-ring"></div>
+        <p>Searching Internet Archive…</p>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="empty-state" style="display:none">
+        <div class="empty-icon">🎮</div>
+        <h3>No games found</h3>
+        <p>Try adjusting your search or selecting a different platform</p>
+        <button class="btn-outline" id="clear-filters-btn">Clear Filters</button>
+      </div>
+
+      <!-- Load more -->
+      <div class="load-more-wrap" id="load-more-wrap" style="display:none">
+        <button class="btn-load-more" id="load-more-btn">Load More Games</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon-wrap" style="--icon-color:#7c3aed">⚖️</div>
+          <h3>100% Legal</h3>
+          <p>All games are homebrew, public domain, or freeware. We search the Internet Archive's open software library — no copyrighted commercial ROMs.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon-wrap" style="--icon-color:#06b6d4">🎮</div>
+          <h3>R36 Ultra Optimized</h3>
+          <p>Every platform has a compatibility rating based on the RK3326 chip and EmuELEC firmware. Green = perfect, amber = playable, red = limited.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon-wrap" style="--icon-color:#f59e0b">⚡</div>
+          <h3>Live Search</h3>
+          <p>Results are pulled live from Internet Archive so you always see the latest available titles. No stale databases or broken links.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon-wrap" style="--icon-color:#10b981">⬇️</div>
+          <h3>Direct Downloads</h3>
+          <p>Click any game and download the ROM file directly. Just drop it in the correct folder on your SD card and you're ready to play.</p>
+        </div>
+      </div>
+
+      <div class="setup-guide">
+        <h3 class="setup-title">📂 SD Card Setup Guide</h3>
+        <div class="setup-steps">
+          <div class="setup-step">
+            <span class="step-num">1</span>
+            <div><strong>Format SD card</strong> as FAT32 or exFAT</div>
+          </div>
+          <div class="setup-step">
+            <span class="step-num">2</span>
+            <div><strong>Create platform folders</strong> — e.g., <code>/roms/gba/</code>, <code>/roms/nes/</code></div>
+          </div>
+          <div class="setup-step">
+            <span class="step-num">3</span>
+            <div><strong>Copy ROM files</strong> into the matching platform folder</div>
+          </div>
+          <div class="setup-step">
+            <span class="step-num">4</span>
+            <div><strong>Insert SD &amp; boot</strong> — EmuELEC will scan and list your games</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-emblem">R36</span>
+        <span>Ultra Hub</span>
+      </div>
+      <p class="footer-note">Links to publicly available free &amp; legal software only. Powered by <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.</p>
+      <p class="footer-legal">⚖️ Always ensure you have the legal right to play any software you download.</p>
+    </div>
+  </footer>
+
+  <!-- ── Download Modal ── -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-game-title" style="display:none">
+    <div class="modal" id="modal">
+      <button class="modal-close-btn" id="modal-close" aria-label="Close modal">✕</button>
+
+      <div class="modal-hero">
+        <div class="modal-cover-wrap">
+          <img class="modal-cover" id="modal-cover" src="" alt="" loading="lazy" />
+          <div class="modal-cover-fallback" id="modal-cover-fallback"></div>
+        </div>
+        <div class="modal-meta">
+          <span class="modal-platform-badge" id="modal-platform-badge"></span>
+          <h2 class="modal-game-title" id="modal-game-title"></h2>
+          <p class="modal-game-desc" id="modal-game-desc"></p>
+          <div class="modal-tags" id="modal-tags"></div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-info-row" id="modal-info-row"></div>
+
+        <div class="compat-section">
+          <h4>R36 Ultra Compatibility</h4>
+          <div class="compat-track">
+            <div class="compat-fill" id="compat-fill"></div>
+          </div>
+          <span class="compat-label" id="compat-label"></span>
+        </div>
+
+        <div class="file-list" id="file-list">
+          <h4>Available Files</h4>
+          <div class="file-items" id="file-items">
+            <div class="file-loading">
+              <div class="loader-ring small"></div>
+              <span>Fetching files…</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <a class="btn-primary" id="modal-download-btn" href="#" target="_blank" rel="noopener">
+            ⬇️ Download ROM
+          </a>
+          <a class="btn-secondary" id="modal-archive-btn" href="#" target="_blank" rel="noopener">
+            🔗 View on Archive.org
+          </a>
+        </div>
+
+        <p class="modal-legal-note">⚖️ This is free software. Please verify you have the right to use it in your region.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
