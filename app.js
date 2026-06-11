@@ -10,74 +10,116 @@ const PLATFORMS = [
   {
     id: 'all', name: 'All Platforms', short: 'ALL',
     icon: '🎮', color: '#7c3aed', compat: 'excellent',
-    iaQuery: 'mediatype:software (subject:"game boy" OR subject:"nintendo" OR subject:"sega" OR subject:"playstation" OR subject:"arcade")',
+    iaQuery: 'mediatype:software (subject:"game boy" OR subject:"nintendo" OR subject:"sega" OR subject:"playstation" OR subject:"arcade" OR subject:"atari" OR subject:"homebrew" OR collection:homebrew_creators)',
     folder: '', compatPct: 100
   },
   {
     id: 'gba', name: 'Game Boy Advance', short: 'GBA',
     icon: '🔵', color: '#3b82f6', compat: 'excellent',
-    iaQuery: 'mediatype:software subject:"Game Boy Advance"',
+    iaQuery: 'mediatype:software (subject:"Game Boy Advance" OR subject:"GBA" OR collection:softwarelibrary_gba_homebrew)',
     folder: 'gba', compatPct: 98, ext: ['.gba']
   },
   {
     id: 'nes', name: 'NES / Famicom', short: 'NES',
     icon: '🔴', color: '#ef4444', compat: 'excellent',
-    iaQuery: 'mediatype:software (subject:"Nintendo Entertainment System" OR subject:"NES" OR subject:"Famicom")',
+    iaQuery: 'mediatype:software (subject:"Nintendo Entertainment System" OR subject:"NES" OR subject:"Famicom" OR collection:softwarelibrary_nes_homebrew)',
     folder: 'nes', compatPct: 100, ext: ['.nes']
   },
   {
     id: 'snes', name: 'SNES / Super Famicom', short: 'SNES',
     icon: '🟣', color: '#a855f7', compat: 'excellent',
-    iaQuery: 'mediatype:software (subject:"Super Nintendo" OR subject:"SNES" OR subject:"Super Famicom")',
+    iaQuery: 'mediatype:software (subject:"Super Nintendo" OR subject:"SNES" OR subject:"Super Famicom" OR collection:softwarelibrary_snes_homebrew)',
     folder: 'snes', compatPct: 100, ext: ['.sfc', '.smc']
   },
   {
     id: 'gb', name: 'Game Boy', short: 'GB',
     icon: '🟢', color: '#22c55e', compat: 'excellent',
-    iaQuery: 'mediatype:software subject:"Game Boy" -subject:"Color" -subject:"Advance"',
+    iaQuery: 'mediatype:software (subject:"Game Boy" OR subject:"GB") -subject:"Color" -subject:"Advance" AND (homebrew OR rom OR collection:softwarelibrary_gb_homebrew)',
     folder: 'gb', compatPct: 100, ext: ['.gb']
   },
   {
     id: 'gbc', name: 'Game Boy Color', short: 'GBC',
     icon: '🌈', color: '#10b981', compat: 'excellent',
-    iaQuery: 'mediatype:software subject:"Game Boy Color"',
+    iaQuery: 'mediatype:software (subject:"Game Boy Color" OR subject:"GBC" OR collection:softwarelibrary_gbc_homebrew)',
     folder: 'gbc', compatPct: 100, ext: ['.gbc']
   },
   {
     id: 'md', name: 'Sega Mega Drive', short: 'MD',
     icon: '⚡', color: '#14b8a6', compat: 'excellent',
-    iaQuery: 'mediatype:software (subject:"Sega Genesis" OR subject:"Mega Drive" OR subject:"Megadrive")',
+    iaQuery: 'mediatype:software (subject:"Sega Genesis" OR subject:"Mega Drive" OR subject:"Megadrive" OR collection:softwarelibrary_sega_genesis_homebrew)',
     folder: 'megadrive', compatPct: 98, ext: ['.md', '.bin', '.gen']
   },
   {
     id: 'ps1', name: 'PlayStation 1', short: 'PS1',
     icon: '🎯', color: '#6366f1', compat: 'good',
-    iaQuery: 'mediatype:software (subject:"PlayStation" OR subject:"PSX" OR subject:"PS1") -subject:"PS2" -subject:"PS3"',
+    iaQuery: 'mediatype:software (subject:"PlayStation" OR subject:"PSX" OR subject:"PS1" OR collection:softwarelibrary_playstation_homebrew) -subject:"PS2" -subject:"PS3"',
     folder: 'psx', compatPct: 82, ext: ['.bin', '.cue', '.iso', '.img']
   },
   {
     id: 'arcade', name: 'Arcade / MAME', short: 'MAME',
     icon: '🕹️', color: '#f97316', compat: 'good',
-    iaQuery: 'mediatype:software (subject:"arcade" OR subject:"MAME" OR subject:"CPS") collection:arcade_games',
+    iaQuery: 'mediatype:software (subject:"arcade" OR subject:"MAME" OR subject:"CPS" OR collection:arcade_games)',
     folder: 'mame', compatPct: 88, ext: ['.zip']
   },
   {
     id: 'pce', name: 'PC Engine', short: 'PCE',
     icon: '💎', color: '#ec4899', compat: 'excellent',
-    iaQuery: 'mediatype:software (subject:"PC Engine" OR subject:"TurboGrafx")',
+    iaQuery: 'mediatype:software (subject:"PC Engine" OR subject:"TurboGrafx" OR collection:softwarelibrary_pcengine_homebrew)',
     folder: 'pcengine', compatPct: 95, ext: ['.pce']
   },
   {
     id: 'neogeo', name: 'Neo Geo', short: 'NGP',
     icon: '🔶', color: '#f43f5e', compat: 'good',
-    iaQuery: 'mediatype:software subject:"Neo Geo"',
+    iaQuery: 'mediatype:software (subject:"Neo Geo" OR subject:"Neo-Geo" OR collection:softwarelibrary_neogeo_homebrew)',
     folder: 'neogeo', compatPct: 88, ext: ['.zip']
   },
   {
     id: 'n64', name: 'Nintendo 64', short: 'N64',
     icon: '🟩', color: '#16a34a', compat: 'fair',
-    iaQuery: 'mediatype:software (subject:"Nintendo 64" OR subject:"N64")',
+    iaQuery: 'mediatype:software (subject:"Nintendo 64" OR subject:"N64" OR collection:softwarelibrary_n64_homebrew)',
     folder: 'n64', compatPct: 42, ext: ['.z64', '.n64', '.v64']
+  },
+  {
+    id: 'psp', name: 'PlayStation Portable', short: 'PSP',
+    icon: '🖤', color: '#64748b', compat: 'fair',
+    iaQuery: 'mediatype:software (subject:"PlayStation Portable" OR subject:"PSP" OR subject:"PSP homebrew" OR collection:softwarelibrary_psp_homebrew)',
+    folder: 'psp', compatPct: 48, ext: ['.iso', '.cso', '.pbp']
+  },
+  {
+    id: 'nds', name: 'Nintendo DS', short: 'NDS',
+    icon: '📟', color: '#f43f5e', compat: 'fair',
+    iaQuery: 'mediatype:software (subject:"Nintendo DS" OR subject:"NDS" OR subject:"NDS homebrew" OR collection:softwarelibrary_nds_homebrew)',
+    folder: 'nds', compatPct: 55, ext: ['.nds']
+  },
+  {
+    id: 'dreamcast', name: 'Sega Dreamcast', short: 'DC',
+    icon: '🌀', color: '#ff6b6b', compat: 'limited',
+    iaQuery: 'mediatype:software (subject:"Sega Dreamcast" OR subject:"Dreamcast" OR subject:"Dreamcast homebrew")',
+    folder: 'dreamcast', compatPct: 35, ext: ['.cdi', '.gdi', '.chd']
+  },
+  {
+    id: 'sms', name: 'Sega Master System', short: 'SMS',
+    icon: '🟦', color: '#2563eb', compat: 'excellent',
+    iaQuery: 'mediatype:software (subject:"Sega Master System" OR subject:"Master System" OR subject:"SMS homebrew")',
+    folder: 'sms', compatPct: 100, ext: ['.sms']
+  },
+  {
+    id: 'gamegear', name: 'Sega Game Gear', short: 'GG',
+    icon: '🔋', color: '#059669', compat: 'excellent',
+    iaQuery: 'mediatype:software (subject:"Sega Game Gear" OR subject:"Game Gear" OR subject:"Gamegear")',
+    folder: 'gg', compatPct: 100, ext: ['.gg', '.bin']
+  },
+  {
+    id: 'atari2600', name: 'Atari 2600', short: 'ATARI',
+    icon: '🕹️', color: '#b45309', compat: 'excellent',
+    iaQuery: 'mediatype:software (subject:"Atari 2600" OR subject:"Atari" OR subject:"VCS" OR collection:softwarelibrary_atari2600_homebrew)',
+    folder: 'atari2600', compatPct: 100, ext: ['.a26', '.bin']
+  },
+  {
+    id: 'ngpc', name: 'Neo Geo Pocket Color', short: 'NGPC',
+    icon: '🎴', color: '#db2777', compat: 'excellent',
+    iaQuery: 'mediatype:software (subject:"Neo Geo Pocket Color" OR subject:"NGPC" OR subject:"Neo Geo Pocket")',
+    folder: 'ngpc', compatPct: 98, ext: ['.ngc', '.ngp']
   }
 ];
 
@@ -122,7 +164,28 @@ const CURATED_GAMES = [
   { id:'nes-game-genie-db',     title:'Battle Kid',             pid:'nes',    year:'2010', dev:'Sivak Games',     genre:'Platformer',  desc:'Extremely challenging NES platformer in the style of classic Nintendo hard games.' },
   { id:'homebrew-gba-2',        title:'GBA Homebrew Pack 2',    pid:'gba',    year:'2021', dev:'Various',         genre:'Various',     desc:'Second volume of curated GBA homebrew including RPGs, shooters, and platformers.' },
   { id:'snes-doom',             title:'SNES Doom Port',         pid:'snes',   year:'2020', dev:'Community',       genre:'Shooter',     desc:'Community SNES port of Doom. A technical showcase of SNES homebrew power.' },
-  { id:'megadrive-homebrew',    title:'Mega Drive Homebrew Pack',pid:'md',    year:'2022', dev:'Various',         genre:'Various',     desc:'Collection of free Sega Mega Drive homebrew games and tech demos.' }
+  { id:'megadrive-homebrew',    title:'Mega Drive Homebrew Pack',pid:'md',    year:'2022', dev:'Various',         genre:'Various',     desc:'Collection of free Sega Mega Drive homebrew games and tech demos.' },
+  // ── New Platform and Expanded Curated Games ──
+  { id:'cavestory-psp',        title:'Cave Story PSP',          pid:'psp',    year:'2007', dev:'Pixel / Port',     genre:'Adventure',   desc:'Classic metroidvania platformer Cave Story ported to PSP. High speed action and great story.' },
+  { id:'silveredge-psp',       title:'Silveredge',              pid:'psp',    year:'2009', dev:'Tyranid',          genre:'Shooter',     desc:'Advanced 3D shoot-em-up homebrew for PSP featuring fast gameplay and great techno audio.' },
+  { id:'flappy-bird-ds',       title:'Flappy Bird DS',          pid:'nds',    year:'2014', dev:'Spinal',           genre:'Arcade',      desc:'The viral arcade game Flappy Bird ported to Nintendo DS with simple touchscreen controls.' },
+  { id:'amicraft-ds',          title:'AmiCraft (Minecraft DS)', pid:'nds',    year:'2014', dev:'Smealum',          genre:'Sandbox',     desc:'An incredible Minecraft clone for Nintendo DS, rendering massive blocks in 3D.' },
+  { id:'wind-and-water-dc',    title:'Wind & Water: Puzzle',    pid:'dreamcast', year:'2008', dev:'Yuan Works',   genre:'Puzzle',      desc:'Professional-grade tile puzzle game for Sega Dreamcast. Outstanding sprites and music.' },
+  { id:'alice-dreams-dc',      title:'Alice Dreams Tournament', pid:'dreamcast', year:'2017', dev:'Alice Team',   genre:'Action',      desc:'Bomberman-inspired multiplayer puzzle tournament game running natively on Dreamcast.' },
+  { id:'bocks-birthday-sms',   title:'Bocks Birthday',          pid:'sms',    year:'2007', dev:'SMS Power',        genre:'Platformer',  desc:'Charming custom Sega Master System homebrew platformer celebrating SMS history.' },
+  { id:'digger-chan-sms',      title:'Digger Chan',             pid:'sms',    year:'2009', dev:'Playpower',        genre:'Puzzle',      desc:'Addictive puzzle strategy game where you guide Digger Chan to excavate water pipes.' },
+  { id:'gg-aleste-gg',         title:'GG Aleste Homebrew',      pid:'gamegear', year:'1991', dev:'Compile',       genre:'Shooter',     desc:'Classic high-speed vertical scrolling shoot-em-up designed for Game Gear hardware.' },
+  { id:'halo-2600',            title:'Halo 2600',               pid:'atari2600', year:'2010', dev:'Ed Fries',     genre:'Action',      desc:'Clever demake of Halo for the Atari 2600. Fight through 64 action-packed screen layouts.' },
+  { id:'lady-bug-2600',        title:'Lady Bug 2600',           pid:'atari2600', year:'2006', dev:'Champ Games',   genre:'Puzzle',      desc:'A highly accurate arcade port of Lady Bug to the Atari 2600. Evade insects and collect score.' },
+  { id:'pocket-love-ngpc',     title:'Pocket Love',             pid:'ngpc',   year:'2003', dev:'NeoDev',           genre:'Visual Novel', desc:'A rare and cute Neo Geo Pocket Color homebrew game containing romance simulator elements.' },
+  { id:'celeste-gba',          title:'Celeste Classic GBA',     pid:'gba',    year:'2019', dev:'KevKev',           genre:'Platformer',  desc:'A perfect port of the original PICO-8 Celeste prototype game built specifically for the GBA.' },
+  { id:'doom-gba',             title:'Doom GBA Homebrew',       pid:'gba',    year:'2022', dev:'Community',        genre:'FPS',         desc:'A high-performance port of the original Doom engine optimized for GBA hardware.' },
+  { id:'smb35-nes',            title:'Super Mario Hack',        pid:'nes',    year:'2020', dev:'Various',          genre:'Platformer',  desc:'A creative custom level hack of Super Mario Bros celebrating its anniversary.' },
+  { id:'dpad-hero',            title:'D-Pad Hero',              pid:'nes',    year:'2009', dev:'Retroscribe',      genre:'Rhythm',      desc:'A rhythm guitar game for NES. Tap the buttons in sync with falling notes!' },
+  { id:'classic-kong-snes',    title:'Classic Kong',            pid:'snes',   year:'2012', dev:'BubbleZap',        genre:'Arcade',      desc:'Extremely faithful 16-bit homebrew remake of the classic arcade Donkey Kong game.' },
+  { id:'tobu-tobu-girl',       title:'Tobu Tobu Girl',          pid:'gb',     year:'2017', dev:'Tangram Games',    genre:'Platformer',  desc:'Bounce on enemies and flap your arms to rescue your cat in this beautiful Game Boy homebrew.' },
+  { id:'deadeus-gbc',          title:'Deadeus Horror',          pid:'gbc',    year:'2019', dev:'Izma',             genre:'Adventure',   desc:'A highly-acclaimed dark retro horror game created for the Game Boy Color.' },
+  { id:'tanglewood-md',        title:'Tanglewood Demo',         pid:'md',     year:'2018', dev:'Big Evil Corp',    genre:'Platformer',  desc:'Original puzzle platformer coded in pure 68000 assembly for Sega Mega Drive.' }
 ];
 
 // ─── DOM Refs ────────────────────────────────────────────────────────────────
